@@ -23,6 +23,24 @@
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
   margin-bottom: 24px;
 }
+    .hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.vn-flag {
+  height: 64px;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  background: rgba(255,255,255,0.12);
+  padding: 4px;
+}
 .hero h1,
 .hero p,
 .top-note {
@@ -163,18 +181,20 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="hero">
-      <h1>Công cụ tạo mô tả sản phẩm E-commerce</h1>
-      <p>
-        Ứng dụng giúp người bán hàng online tạo nhanh mô tả sản phẩm hấp dẫn, có gạch đầu dòng tính năng,
-        đoạn mô tả lợi ích và tích hợp từ khóa SEO. Có thể tạo nhiều phiên bản và sao chép nhanh.
-      </p>
-      <div class="top-note">Giao diện thân thiện, dễ dùng và chạy trực tiếp trên Vercel.</div>
-    </div>
+ <div class="hero">
+  <div class="hero-top">
+    <img src="co-dang-co-viet-nam-1.png" alt="Cờ Việt Nam" class="vn-flag" />
+  </div>
 
-    <div class="grid">
-      <div class="card">
+  <h1>Công cụ tạo mô tả sản phẩm E-commerce</h1>
+  <p>
+    Ứng dụng giúp người bán hàng online tạo nhanh mô tả sản phẩm hấp dẫn, có gạch đầu dòng tính năng,
+    đoạn mô tả lợi ích và tích hợp từ khóa SEO.
+  </p>
+  <div class="top-note">
+    Chào mừng ngày Giải phóng miền Nam, thống nhất đất nước 30/4.
+  </div>
+</div>
         <h2>Nhập thông tin sản phẩm</h2>
 
         <label for="productName">Tên sản phẩm</label>
