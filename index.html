@@ -1,13 +1,458 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Công cụ tạo mô tả sản phẩm E-commerce</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(135deg, #eef7f5, #f8fbff, #eef4ff);
+      color: #1f2937;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero {
+      background: rgba(255,255,255,0.92);
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      margin: 0 0 10px;
+      font-size: 34px;
+      color: #0f172a;
+    }
+    .hero p {
+      margin: 0;
+      color: #475569;
+      line-height: 1.6;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+    }
+    .card h2 {
+      margin-top: 0;
+      font-size: 24px;
+      color: #0f172a;
+    }
+    label {
+      display: block;
+      margin: 16px 0 8px;
+      font-weight: bold;
+      color: #334155;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid #dbe4ee;
+      border-radius: 16px;
+      font-size: 15px;
+      outline: none;
+      background: #fcfdff;
+    }
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #38b2ac;
+      box-shadow: 0 0 0 4px rgba(56, 178, 172, 0.15);
+    }
+    .btn-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    button {
+      border: none;
+      border-radius: 16px;
+      padding: 13px 18px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #14b8a6, #3b82f6);
+      color: white;
+    }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-outline {
+      background: white;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+    }
+    .btn-outline:hover { background: #f8fafc; }
+    .error {
+      color: #dc2626;
+      font-size: 13px;
+      margin-top: 6px;
+      display: none;
+    }
+    .result-box {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 18px;
+      margin-top: 16px;
+      border: 1px solid #e2e8f0;
+    }
+    .result-box h3 {
+      margin-top: 0;
+      color: #0f172a;
+    }
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+    .tab-btn.active {
+      background: #0f766e;
+      color: white;
+    }
+    ul {
+      padding-left: 20px;
+      line-height: 1.7;
+    }
+    .seo-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .seo-tag {
+      background: #e2f2ff;
+      color: #1d4ed8;
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+    }
+    .output-area {
+      width: 100%;
+      min-height: 220px;
+      margin-top: 14px;
+      font-family: Consolas, monospace;
+      font-size: 14px;
+      background: white;
+    }
+    .top-note {
+      margin-top: 12px;
+      color: #64748b;
+      font-size: 14px;
+    }
+    .loading {
+      color: #0f766e;
+      font-weight: bold;
+      margin-top: 12px;
+      display: none;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <h1>Công cụ tạo mô tả sản phẩm E-commerce</h1>
+      <p>
+        Ứng dụng giúp người bán hàng online tạo nhanh mô tả sản phẩm hấp dẫn, có gạch đầu dòng tính năng,
+        đoạn mô tả lợi ích và tích hợp từ khóa SEO. Có thể tạo nhiều phiên bản và sao chép nhanh.
+      </p>
+      <div class="top-note">Giao diện thân thiện, dễ dùng và chạy trực tiếp trên Vercel.</div>
+    </div>
 
+    <div class="grid">
+      <div class="card">
+        <h2>Nhập thông tin sản phẩm</h2>
+
+        <label for="productName">Tên sản phẩm</label>
+        <input id="productName" type="text" placeholder="Ví dụ: Máy xay sinh tố mini cầm tay" />
+        <div class="error" id="productNameError">Vui lòng nhập tên sản phẩm.</div>
+
+        <label for="features">Các tính năng chính</label>
+        <textarea id="features" placeholder="Mỗi dòng một tính năng"></textarea>
+        <div class="error" id="featuresError">Vui lòng nhập ít nhất 1 tính năng.</div>
+
+        <label for="benefits">Lợi ích chính cho khách hàng</label>
+        <textarea id="benefits" placeholder="Mỗi dòng một lợi ích"></textarea>
+        <div class="error" id="benefitsError">Vui lòng nhập ít nhất 1 lợi ích.</div>
+
+        <label for="keywords">Từ khóa SEO mục tiêu</label>
+        <textarea id="keywords" placeholder="Phân tách bằng dấu phẩy hoặc xuống dòng"></textarea>
+        <div class="error" id="keywordsError">Vui lòng nhập từ khóa SEO.</div>
+
+        <div class="btn-row">
+          <button class="btn-primary" id="generateBtn">Tạo mô tả</button>
+          <button class="btn-outline" id="clearBtn" type="button">Xóa dữ liệu</button>
+        </div>
+
+        <div class="loading" id="loadingText">Đang tạo mô tả...</div>
+      </div>
+
+      <div class="card">
+        <h2>Kết quả mô tả sản phẩm</h2>
+
+        <div class="tabs">
+          <button class="btn-outline tab-btn active" data-index="0">Phiên bản 1</button>
+          <button class="btn-outline tab-btn" data-index="1">Phiên bản 2</button>
+          <button class="btn-outline tab-btn" data-index="2">Phiên bản 3</button>
+        </div>
+
+        <div class="result-box">
+          <h3 id="resultTitle">Chưa có dữ liệu</h3>
+
+          <div>
+            <strong>Tính năng nổi bật</strong>
+            <ul id="resultBullets">
+              <li>Hãy nhập thông tin sản phẩm và bấm “Tạo mô tả”.</li>
+            </ul>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <strong>Lợi ích cho khách hàng</strong>
+            <p id="resultBenefits">Mô tả chi tiết sẽ hiển thị ở đây.</p>
+          </div>
+
+          <div style="margin-top: 14px;">
+            <strong>Từ khóa SEO</strong>
+            <div class="seo-tags" id="seoTags"></div>
+          </div>
+        </div>
+
+        <label for="outputMode">Định dạng đầu ra</label>
+        <select id="outputMode">
+          <option value="text">Văn bản thường</option>
+          <option value="html">HTML đơn giản</option>
+        </select>
+
+        <textarea id="outputArea" class="output-area" readonly></textarea>
+
+        <div class="btn-row">
+          <button class="btn-primary" id="copyTextBtn">Sao chép nội dung</button>
+          <button class="btn-outline" id="copyHtmlBtn">Sao chép HTML</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const productNameEl = document.getElementById('productName');
+    const featuresEl = document.getElementById('features');
+    const benefitsEl = document.getElementById('benefits');
+    const keywordsEl = document.getElementById('keywords');
+    const generateBtn = document.getElementById('generateBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const outputModeEl = document.getElementById('outputMode');
+    const outputAreaEl = document.getElementById('outputArea');
+    const loadingTextEl = document.getElementById('loadingText');
+
+    const resultTitleEl = document.getElementById('resultTitle');
+    const resultBulletsEl = document.getElementById('resultBullets');
+    const resultBenefitsEl = document.getElementById('resultBenefits');
+    const seoTagsEl = document.getElementById('seoTags');
+    const tabButtons = document.querySelectorAll('.tab-btn');
+
+    let versions = [];
+    let activeIndex = 0;
+
+    function normalizeList(text) {
+      return text
+        .split(/\n|,|;|•/)
+        .map(item => item.trim())
+        .filter(Boolean);
+    }
+
+    function showError(id, show) {
+      document.getElementById(id).style.display = show ? 'block' : 'none';
+    }
+
+    function validateForm() {
+      const productName = productNameEl.value.trim();
+      const features = normalizeList(featuresEl.value);
+      const benefits = normalizeList(benefitsEl.value);
+      const keywords = normalizeList(keywordsEl.value);
+
+      showError('productNameError', !productName);
+      showError('featuresError', features.length === 0);
+      showError('benefitsError', benefits.length === 0);
+      showError('keywordsError', keywords.length === 0);
+
+      return !!(productName && features.length && benefits.length && keywords.length);
+    }
+
+    function toPlainText(version) {
+      return version.title + '\n\n'
+        + 'Tính năng nổi bật:\n'
+        + version.bulletPoints.map(item => '• ' + item).join('\n')
+        + '\n\nLợi ích cho khách hàng:\n'
+        + version.benefits
+        + '\n\nTừ khóa SEO: ' + version.seoLine;
+    }
+
+    function toHtml(version) {
+      const bulletHtml = version.bulletPoints.map(item => '<li>' + item + '</li>').join('');
+      return '<section>\n'
+        + '  <h2>' + version.title + '</h2>\n'
+        + '  <ul>' + bulletHtml + '</ul>\n'
+        + '  <p>' + version.benefits + '</p>\n'
+        + '  <p><strong>Từ khóa SEO:</strong> ' + version.seoLine + '</p>\n'
+        + '</section>';
+    }
+
+    function renderVersion(index) {
+      if (!versions.length) return;
+
+      activeIndex = index;
+      const version = versions[index];
+
+      resultTitleEl.textContent = version.title;
+      resultBulletsEl.innerHTML = version.bulletPoints.map(item => '<li>' + item + '</li>').join('');
+      resultBenefitsEl.textContent = version.benefits;
+
+      const seoItems = normalizeList(version.seoLine);
+      seoTagsEl.innerHTML = seoItems.map(item => '<span class="seo-tag">' + item + '</span>').join('');
+
+      updateOutputArea();
+
+      tabButtons.forEach((btn, idx) => {
+        btn.classList.toggle('active', idx === index);
+      });
+    }
+
+    function updateOutputArea() {
+      if (!versions.length) {
+        outputAreaEl.value = '';
+        return;
+      }
+
+      const version = versions[activeIndex];
+      outputAreaEl.value = outputModeEl.value === 'html'
+        ? toHtml(version)
+        : toPlainText(version);
+    }
+
+    async function generateDescriptions() {
+      const productName = productNameEl.value.trim();
+      const features = normalizeList(featuresEl.value);
+      const benefits = normalizeList(benefitsEl.value);
+      const keywords = normalizeList(keywordsEl.value);
+
+      const response = await fetch('/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ productName, features, benefits, keywords })
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Có lỗi xảy ra khi tạo mô tả.');
+      }
+
+      if (!data.versions || !Array.isArray(data.versions)) {
+        throw new Error('Dữ liệu trả về không đúng cấu trúc.');
+      }
+
+      return data.versions;
+    }
+
+    generateBtn.addEventListener('click', async function () {
+      if (!validateForm()) return;
+
+      loadingTextEl.style.display = 'block';
+      generateBtn.disabled = true;
+      generateBtn.textContent = 'Đang tạo...';
+
+      try {
+        versions = await generateDescriptions();
+        renderVersion(0);
+      } catch (error) {
+        alert(error.message || 'Có lỗi xảy ra khi gọi AI.');
+        console.error(error);
+      } finally {
+        loadingTextEl.style.display = 'none';
+        generateBtn.disabled = false;
+        generateBtn.textContent = 'Tạo mô tả';
+      }
+    });
+
+    clearBtn.addEventListener('click', function () {
+      productNameEl.value = '';
+      featuresEl.value = '';
+      benefitsEl.value = '';
+      keywordsEl.value = '';
+      versions = [];
+      activeIndex = 0;
+
+      resultTitleEl.textContent = 'Chưa có dữ liệu';
+      resultBulletsEl.innerHTML = '<li>Hãy nhập thông tin sản phẩm và bấm “Tạo mô tả”.</li>';
+      resultBenefitsEl.textContent = 'Mô tả chi tiết sẽ hiển thị ở đây.';
+      seoTagsEl.innerHTML = '';
+      outputAreaEl.value = '';
+
+      showError('productNameError', false);
+      showError('featuresError', false);
+      showError('benefitsError', false);
+      showError('keywordsError', false);
+
+      tabButtons.forEach((btn, idx) => btn.classList.toggle('active', idx === 0));
+    });
+
+    outputModeEl.addEventListener('change', updateOutputArea);
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const index = Number(this.dataset.index);
+        if (!versions.length) return;
+        renderVersion(index);
+      });
+    });
+
+    document.getElementById('copyTextBtn').addEventListener('click', async function () {
+      try {
+        await navigator.clipboard.writeText(outputAreaEl.value);
+        alert('Đã sao chép nội dung.');
+      } catch (error) {
+        alert('Không sao chép được nội dung.');
+      }
+    });
+
+    document.getElementById('copyHtmlBtn').addEventListener('click', async function () {
+      if (!versions.length) {
+        alert('Chưa có nội dung để sao chép.');
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(toHtml(versions[activeIndex]));
+        alert('Đã sao chép HTML.');
+      } catch (error) {
+        alert('Không sao chép được HTML.');
+      }
+    });
+
+    productNameEl.value = 'Máy xay sinh tố mini cầm tay';
+    featuresEl.value = 'Dung lượng pin 2000mAh\nLưỡi dao inox 6 cánh\nSạc USB-C\nThiết kế nhỏ gọn';
+    benefitsEl.value = 'Tiện mang đi\nXay nhanh\nDễ vệ sinh\nPhù hợp dân văn phòng';
+    keywordsEl.value = 'máy xay mini, máy xay sinh tố cầm tay, máy xay USB';
+  </script>
+</body>
+</html>
